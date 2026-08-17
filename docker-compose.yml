@@ -1,0 +1,60 @@
+# docker-compose.yml — GamePrice
+#
+# Estado: Fase 0. Solo se define el esqueleto de servicios previstos.
+# Los servicios "frontend" y "backend" se activarán en las Fases 3 y 4,
+# cuando exista código real para construir sus imágenes.
+# "redis" y "worker" se incorporarán en la Fase 15, según la regla del
+# proyecto de no agregar Redis/Celery antes de que exista una necesidad real.
+
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: gameprice_postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # backend:
+  #   build: ./backend
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "8000:8000"
+
+  # frontend:
+  #   build: ./frontend
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "3000:3000"
+
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+
+  # worker:
+  #   build: ./backend
+  #   command: celery -A app.worker worker --loglevel=info
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - redis
+  #     - postgres
+
+volumes:
+  pgdata:
