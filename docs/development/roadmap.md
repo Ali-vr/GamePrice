@@ -6,11 +6,11 @@ El proyecto se desarrolla de forma incremental. No se avanza a una fase nueva si
 
 | Fase | Nombre | Estado | Descripción breve |
 |------|--------|--------|--------------------|
-| 0 | Planificación | 🟡 En curso | README, `/docs`, arquitectura, roadmap, estructura inicial |
+| 0 | Planificación | ✅ Completada | README, `/docs`, arquitectura, roadmap, estructura inicial |
 | 1 | Entorno | ⬜ Pendiente | Git, Node, Python, PostgreSQL, Docker, VS Code |
-| 2 | Repositorio | 🟡 En curso | Estructura base de carpetas y archivos de config |
+| 2 | Repositorio | ✅ Completada | Estructura base de carpetas y archivos de config |
 | 3 | Backend inicial | ⬜ Pendiente | FastAPI: main, config, database, routers, schemas, models, services |
-| 4 | Frontend inicial | ⬜ Pendiente | Next.js + TypeScript + Tailwind, estructura de páginas |
+| 4 | Frontend inicial | ✅ Completada | Next.js + TypeScript + Tailwind, estructura de páginas, componentes base, design system |
 | 5 | PostgreSQL | ⬜ Pendiente | Modelo inicial, SQLAlchemy, Alembic, primeras migraciones |
 | 6 | Comunicación | ⬜ Pendiente | Conectar Next.js ↔ FastAPI ↔ PostgreSQL |
 | 7 | Juegos | ⬜ Pendiente | Búsqueda y páginas de videojuegos |

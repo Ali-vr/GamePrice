@@ -20,8 +20,8 @@ Construir una aplicación real, profesional y usable como portfolio de GitHub, p
 
 ## Características
 
-> Estado actual: **Fase 0 — Planificación y base del proyecto.**
-> Ninguna de estas features está implementada todavía; se listan como alcance del proyecto completo.
+> Estado actual: **Fase 4 — Frontend inicial implementado.**
+> Las features se construyen incrementalmente; las listadas abajo son el alcance completo del proyecto.
 
 - Búsqueda y ficha de videojuegos.
 - Comparación de precios entre tiendas (Steam, Epic, GOG, Xbox, PlayStation y tiendas oficiales puntuales).
@@ -104,7 +104,43 @@ Ver [`.env.example`](.env.example) para el listado completo. Nunca subir un `.en
 
 ## Ejecución
 
-> Se documentará una vez que backend y frontend tengan una versión ejecutable (Fase 3 y Fase 4 del roadmap).
+### Opción 1: Con Docker Compose (Recomendado)
+
+```bash
+# Preparar entorno
+cp .env.example .env
+
+# Levantar servicios
+docker compose up
+
+# Frontend: http://localhost:3000
+# PostgreSQL: localhost:5432 (cuando backend esté activo)
+```
+
+### Opción 2: Frontend solo (desarrollo local)
+
+```bash
+cd frontend
+
+# Instalar dependencias
+npm install
+
+# Dev server
+npm run dev
+
+# En el navegador: http://localhost:3000
+```
+
+### Opción 3: Build y run manual del frontend
+
+```bash
+cd frontend
+npm install
+npm run build
+npm start
+```
+
+**Nota:** Por ahora (Fase 4), el frontend es totalmente estático. No hay backend ni base de datos conectados — se agregarán en Fase 6.
 
 ## API
 

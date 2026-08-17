@@ -24,6 +24,20 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  frontend:
+    build: ./frontend
+    container_name: gameprice_frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
   # backend:
   #   build: ./backend
   #   env_file:
@@ -32,15 +46,6 @@ services:
   #     - postgres
   #   ports:
   #     - "8000:8000"
-
-  # frontend:
-  #   build: ./frontend
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - backend
-  #   ports:
-  #     - "3000:3000"
 
   # redis:
   #   image: redis:7-alpine
