@@ -17,7 +17,7 @@ export default function Home() {
       {/* Best Deals Section */}
       <section className="container-centered section-spacing border-t border-border">
         <div className="mb-12">
-          <h2 className="text-display-sm text-accent mb-2">🔥 Mejores Ofertas</h2>
+          <h2 className="text-display-sm text-accent mb-2"> Mejores Ofertas</h2>
           <p className="text-text-soft">Juegos con descuentos especiales esta semana</p>
         </div>
 
@@ -133,7 +133,7 @@ export default function Home() {
       <section className="container-centered section-spacing pb-section-lg border-t border-border">
         <div className="mb-12">
           <h2 className="text-display-sm text-accent mb-2">
-            🎮 Recomendado para tu PC
+             Recomendado para tu PC
           </h2>
           <p className="text-text-soft">
             Juegos compatibles con tu hardware (configuración pendiente en Fase 14)

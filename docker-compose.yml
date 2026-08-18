@@ -38,14 +38,20 @@ services:
       - ./frontend:/app
       - /app/node_modules
 
-  # backend:
-  #   build: ./backend
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - postgres
-  #   ports:
-  #     - "8000:8000"
+  backend:
+    build: ./backend
+    container_name: gameprice_backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
 
   # redis:
   #   image: redis:7-alpine

@@ -1,0 +1,3 @@
+"""
+GamePrice Backend Application Package
+"""

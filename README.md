@@ -20,7 +20,7 @@ Construir una aplicación real, profesional y usable como portfolio de GitHub, p
 
 ## Características
 
-> Estado actual: **Fase 4 — Frontend inicial implementado.**
+> Estado actual: **Fase 3 completada — Backend con integraciones Steam + CheapShark.**
 > Las features se construyen incrementalmente; las listadas abajo son el alcance completo del proyecto.
 
 - Búsqueda y ficha de videojuegos.
@@ -104,55 +104,90 @@ Ver [`.env.example`](.env.example) para el listado completo. Nunca subir un `.en
 
 ## Ejecución
 
-### Opción 1: Con Docker Compose (Recomendado)
+### Opción 1: Stack Completo con Docker Compose (Recomendado)
 
 ```bash
 # Preparar entorno
 cp .env.example .env
 
-# Levantar servicios
+# Levantar todos los servicios
 docker compose up
 
-# Frontend: http://localhost:3000
-# PostgreSQL: localhost:5432 (cuando backend esté activo)
+# URLs
+# - Frontend: http://localhost:3000
+# - Backend API: http://localhost:8000
+# - Backend Swagger/Docs: http://localhost:8000/api/docs
+# - PostgreSQL: localhost:5432
 ```
 
-### Opción 2: Frontend solo (desarrollo local)
+**Nota:** La primera ejecución descargará e instalará dependencias. Puede tomar 2-5 minutos.
+
+### Opción 2: Backend solo (desarrollo local)
+
+```bash
+cd backend
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --port 8000
+
+# Swagger en: http://localhost:8000/api/docs
+```
+
+### Opción 3: Frontend solo (desarrollo local)
 
 ```bash
 cd frontend
-
-# Instalar dependencias
 npm install
-
-# Dev server
 npm run dev
 
-# En el navegador: http://localhost:3000
+# Frontend en: http://localhost:3000
+# (Mostrará datos mock, sin conexión a backend)
 ```
 
-### Opción 3: Build y run manual del frontend
+### Pruebas rápidas
 
+Verificar que backend y DB están listos:
 ```bash
-cd frontend
-npm install
-npm run build
-npm start
+curl http://localhost:8000/api/health
 ```
 
-**Nota:** Por ahora (Fase 4), el frontend es totalmente estático. No hay backend ni base de datos conectados — se agregarán en Fase 6.
+Respuesta esperada:
+```json
+{
+  "status": "ok",
+  "database": "connected",
+  "version": "0.1.0"
+}
+```
+
+Buscar precios de un juego:
+```bash
+curl "http://localhost:8000/api/games/search-prices?title=Elden%20Ring"
+```
+
+Ver documentación interactiva en: http://localhost:8000/api/docs
 
 ## API
 
-La documentación interactiva de la API (Swagger/OpenAPI) se habilitará junto con la base de FastAPI. El detalle de endpoints propuestos vive en [`docs/api/`](docs/api/endpoints.md).
+La documentación completa está en [`docs/api/endpoints.md`](docs/api/endpoints.md).
+
+Endpoints activos (Fase 3):
+- `GET /api/health` — Estado de API y base de datos
+- `GET /api/games/search-prices?title=...` — Búsqueda de precios consolidados (Steam ARS + CheapShark USD)
+- `GET /api/docs` — Documentación interactiva Swagger
+
+**Integraciones implementadas:**
+- **Steam Argentina:** precios en pesos argentinos (ARS)
+- **CheapShark:** ofertas en 30+ tiendas (USD)
 
 ## Base de datos
 
-El modelo de entidades y relaciones se documentará en [`docs/database/`](docs/database/overview.md) antes de crear las migraciones con Alembic.
+El modelo de entidades se documentará en [`docs/database/`](docs/database/overview.md) en Fase 5, junto con migraciones Alembic.
+
+Actualmente se cuenta con scaffolding SQLAlchemy listo (engine, session factory) sin modelos aún.
 
 ## Testing
 
-Se usará Pytest, priorizando: autenticación, cálculo de precios, GamePrice Score, compatibilidad de hardware, wishlist y alertas.
+Se implementará en Fase 16 con Pytest, priorizando: autenticación, cálculo de precios, GamePrice Score, compatibilidad de hardware, wishlist y alertas.
 
 ## Roadmap
 
@@ -160,7 +195,15 @@ Ver [`docs/development/roadmap.md`](docs/development/roadmap.md) para las 18 fas
 
 ## Documentación
 
-Toda la documentación técnica vive en [`/docs`](docs/), organizada por área (arquitectura, base de datos, API, frontend, backend, decisiones de diseño, desarrollo y changelog).
+Toda la documentación técnica vive en [`/docs`](docs/), organizada por área:
+- `architecture/` — Diagrama y flujo de la aplicación
+- `api/` — Endpoints y ejemplos
+- `backend/` — Integraciones, servicios, estructura
+- `database/` — Modelos y esquemas (a partir de Fase 5)
+- `frontend/` — Componentes, diseño, rutas
+- `decisions/` — Decisiones arquitectónicas
+- `development/` — Roadmap y desarrollo
+- `changelog/` — Historial de cada fase
 
 ## Autor
 
