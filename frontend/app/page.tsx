@@ -1,8 +1,19 @@
-import Card from "@/components/Card";
+/**
+ * Página de inicio de GamePrice
+ * Muestra juegos con precios rediseñados en cards
+ * MOCK DATA: Estructura lista para Phase 3 (backend real)
+ */
+
+import GameCard from "@/components/GameCard";
 import HeroBlock from "@/components/HeroBlock";
 import Button from "@/components/Button";
+import { MOCK_GAMES } from "@/lib/mockGameData";
 
 export default function Home() {
+  // Separar juegos para diferentes secciones (mock)
+  const bestDeals = MOCK_GAMES.slice(0, 3);
+  const nearHistoricalLow = MOCK_GAMES.slice(1, 4);
+
   return (
     <div className="bg-bg-base">
       {/* Hero Section */}
@@ -14,32 +25,17 @@ export default function Home() {
         />
       </section>
 
-      {/* Best Deals Section */}
+      {/* Best Deals Section - Con GameCard rediseñado */}
       <section className="container-centered section-spacing border-t border-border">
         <div className="mb-12">
-          <h2 className="text-display-sm text-accent mb-2"> Mejores Ofertas</h2>
+          <h2 className="text-display-sm text-accent mb-2">🔥 Mejores Ofertas</h2>
           <p className="text-text-soft">Juegos con descuentos especiales esta semana</p>
+          <p className="text-text-soft text-xs mt-2">[Datos mock - Fase 3 traerá datos reales]</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Mock Cards - Clearly labeled as placeholder */}
-          {[1, 2, 3].map((i) => (
-            <Card key={i}>
-              <div className="aspect-video bg-bg-base rounded-card mb-4 flex items-center justify-center border border-text-soft">
-                <p className="text-text-soft text-sm">Imagen del juego #{i}</p>
-              </div>
-              <h3 className="text-body font-bold mb-2">Juego de Ejemplo #{i}</h3>
-              <p className="text-text-soft text-sm mb-4">
-                Este es contenido mock. Se reemplazará con datos reales en Fase 6.
-              </p>
-              <div className="flex items-center gap-4 mb-4">
-                <span className="text-accent font-bold">$1,299</span>
-                <span className="text-text-soft line-through text-sm">$1,999</span>
-              </div>
-              <Button href="/games/ejemplo" className="w-full">
-                Ver Detalles
-              </Button>
-            </Card>
+          {bestDeals.map((game) => (
+            <GameCard key={game.id} game={game} />
           ))}
         </div>
 
@@ -50,39 +46,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Near Historical Low Section */}
+      {/* Near Historical Low Section - Con GameCard rediseñado */}
       <section className="container-centered section-spacing border-t border-border">
         <div className="mb-12">
           <h2 className="text-display-sm text-accent mb-2">📉 Cerca del Mínimo Histórico</h2>
           <p className="text-text-soft">
             Estos juegos están muy cerca de su precio más bajo registrado
           </p>
+          <p className="text-text-soft text-xs mt-2">[Tendencias mock - Fase 9 tendrá histórico real]</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Mock Cards */}
-          {[4, 5, 6].map((i) => (
-            <Card key={i}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-body font-bold">Juego #{i}</h3>
-                <span className="text-accent text-xs font-bold bg-accent bg-opacity-20 px-2 py-1 rounded">
-                  -8% del mín.
-                </span>
-              </div>
-              <p className="text-text-soft text-sm mb-4">
-                Contenido mock. Datos reales en Fase 6+.
-              </p>
-              <div className="flex flex-col gap-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-text-soft">Precio actual:</span>
-                  <span className="font-bold">$499</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-text-soft">Histórico mín:</span>
-                  <span className="font-bold text-accent">$459</span>
-                </div>
-              </div>
-            </Card>
+          {nearHistoricalLow.map((game) => (
+            <GameCard key={game.id} game={game} />
           ))}
         </div>
 
@@ -93,39 +69,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Best Prices for Argentina Section */}
+      {/* Argentina Pricing Section - Info placeholder (Phase 11) */}
       <section className="container-centered section-spacing border-t border-border">
         <div className="mb-12">
-          <h2 className="text-display-sm text-accent mb-2">🇦🇷 Mejores Precios para Argentina</h2>
-          <p className="text-text-soft">Precios finales en ARS incluyendo impuestos estimados</p>
+          <h2 className="text-display-sm text-accent mb-2">🇦🇷 Precios Finales Argentina</h2>
+          <p className="text-text-soft">Conversión a ARS con impuestos estimados (Fase 11)</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[7, 8].map((i) => (
-            <Card key={i} className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-body font-bold mb-1">Juego de Ejemplo #{i}</h3>
-                  <p className="text-text-soft text-sm">Steam / Epic</p>
-                </div>
-                <span className="text-accent font-bold">Mejor Precio</span>
-              </div>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-text-soft">Precio en USD:</span>
-                  <span>$19.99</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-text-soft">Conversión:</span>
-                  <span>$19,290</span>
-                </div>
-                <div className="flex justify-between border-t border-border pt-2 mt-2">
-                  <span className="text-text-soft font-bold">Total ARS (est.):</span>
-                  <span className="text-accent font-bold">$32,155</span>
-                </div>
-              </div>
-            </Card>
-          ))}
+        <div className="bg-bg-surface rounded-hero border border-border p-8 text-center">
+          <p className="text-body mb-4">
+            En Phase 11, los precios mostrarán automáticamente la conversión USD → ARS con
+            impuestos estimados para Argentina.
+          </p>
+          <p className="text-text-soft text-sm">
+            Por ahora, usa el toggle USD/ARS en las cards para ver conversión aproximada.
+          </p>
         </div>
       </section>
 
@@ -133,7 +91,7 @@ export default function Home() {
       <section className="container-centered section-spacing pb-section-lg border-t border-border">
         <div className="mb-12">
           <h2 className="text-display-sm text-accent mb-2">
-             Recomendado para tu PC
+            🎮 Recomendado para tu PC
           </h2>
           <p className="text-text-soft">
             Juegos compatibles con tu hardware (configuración pendiente en Fase 14)
